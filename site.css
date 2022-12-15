@@ -1,0 +1,254 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+}
+#generator {
+  max-width: 640px;
+  margin: auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-areas: 'title title' 'author author' 'plot editor' 'plot motion' 'controller controller' 'output output';
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: .5rem;
+}
+#generator h3 {
+  margin: 0;
+  padding: 0;
+  grid-area: title;
+}
+#generator h4 {
+  margin: 0;
+  padding: 0;
+  grid-area: author;
+}
+#plot {
+  grid-area: plot;
+  width: 256px;
+  height: 256px;
+  display: grid;
+  grid-template-areas: 'x chart' '. y';
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: .25rem;
+  padding: 3rem 0 2rem;
+}
+.chart {
+  border-left: 2px solid #333;
+  border-bottom: 2px solid #333;
+  position: relative;
+  pointer-events: none;
+}
+.axis-x, .axis-y {
+  font-size: 85%;
+  text-align: center;
+}
+.axis-x {
+  grid-area: x;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+.axis-y {
+  grid-area: y;
+}
+.chart::before, .chart::after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+}
+.chart::before {
+  left: -8px;
+  top: -5px;
+  border-width: 0 7px 15px;
+  border-color: #333 transparent;
+}
+.chart::after {
+  right: -5px;
+  bottom: -8px;
+  border-width: 7px 0 7px 15px;
+  border-color: transparent #333;
+}
+.chart > svg {
+  position: absolute;
+  left: -0.9px;
+  bottom: -0.9px;
+  transform: translate(-6.25%, 25%);
+}
+#editor {
+  grid-area: editor;
+  display: grid;
+  grid-template-areas: 'locations coefficients presets';
+  gap: .5rem;
+}
+#motion {
+  grid-area: motion;
+  height: 5rem;
+}
+#controller {
+  grid-area: controller;
+  overflow: hidden;
+  padding-bottom: 2rem;
+}
+#duration {
+  margin-left: 1em;
+  width: 10ch;
+}
+#output {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'label lang' 'code code';
+  grid-area: output;
+}
+#output legend {
+  grid-area: label;
+}
+#output label {
+  padding-right: .125em;
+}
+#language {
+  grid-area: lang;
+}
+#language-tips {
+  padding-left: .125em;
+}
+#code {
+  grid-area: code;
+  font-size: 85%;
+  font-family: monospace;
+  height: 8em;
+  overflow-y: scroll;
+  white-space: pre;
+  color: black;
+  background: whitesmoke;
+}
+#code .keyword {
+  color: royalblue;
+}
+#code .number {
+  color: firebrick;
+}
+#code .op {
+  color: darkslategray;
+}
+#code .var {
+  color: darkslateblue;
+}
+#code, input, select {
+  border: .1rem solid transparent;
+  box-shadow: 0 0 0 1px #999;
+  border-radius: .2rem;
+  outline: none;
+}
+#code:focus, input:focus, select:focus {
+  outline: 2px solid skyblue;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px royalblue;
+}
+.field > input[readonly] {
+  box-shadow: none;
+}
+.field > input[readonly]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ccc;
+}
+#points {
+  grid-area: locations;
+}
+#coefficients {
+  grid-area: coefficients;
+}
+#presets {
+  grid-area: presets;
+}
+.field {
+  display: flex;
+  align-items: center;
+  margin-top: .25em;
+}
+.field > input {
+  flex: 1;
+}
+.field > .point {
+  width: 3ch;
+}
+.field > .coefficient {
+  width: 2ch;
+  margin-left: .25em;
+}
+#points input {
+  width: 8ch;
+}
+#coefficients input {
+  width: 7ch;
+}
+fieldset {
+  margin: 0;
+  padding: .5rem 0 0;
+  border: none;
+  border-top: 1px solid #999;
+}
+fieldset .field {
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+legend {
+  font-size: 85%;
+  background: #fff;
+  padding: .125em .25em;
+  white-space: nowrap;
+}
+#pointers {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  height: 1ch;
+  border-bottom: 1px dashed;
+}
+#pointers::before, #pointers::after {
+  content: '';
+  position: absolute;
+  height: 1.5rem;
+  border-left: 1px solid;
+  top: -.25rem;
+}
+#pointers::before {
+  left: calc(43% + .4rem);
+}
+#pointers::after {
+  left: calc(57% + .4rem);
+}
+.pointer {
+  position: absolute;
+  width: .8rem;
+  height: .8rem;
+  line-height: .8rem;
+  text-align: center;
+  border: 1px solid;
+  background: #fc0;
+  border-color: #fed #640 #640 #fed;
+  cursor: ew-resize;
+  z-index: 1;
+  font-size: 80%;
+  font-family: monospace;
+}
+body.dragging {
+  cursor: ew-resize;
+}
+#ball {
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  background: radial-gradient(at 33% 33%,red,maroon 40%,black);
+  border-radius: 100%;
+  z-index: 1000;
+  cursor: pointer;
+}
+body.bouncing #ball {
+  pointer-events: none;
+}

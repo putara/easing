@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tim Groleau&apos;s Easing Function Generator</title>
+<link rel="stylesheet" type="text/css" href="site.css">
+</head>
+<body>
+<section id="generator">
+  <h3>Easing function Generator - Quintic Bezier</h3>
+  <h4>Timothée Groleau</h4>
+  <section id="plot">
+    <div class="axis-x">Position</div>
+    <div class="axis-y">Time</div>
+    <div class="chart">
+      <svg viewBox="0 0 256 512">
+        <path class="curve" style="fill:none;stroke:#000;stroke-width:2;stroke-linecap:round"/>
+        <circle class="end" cx="0" cy="0" r="3" fill="red"/>
+        <path style="fill:none;stroke:#999;stroke-width:1px;stroke-dasharray:1,2" d="M16 160h224"/>
+        <path style="fill:none;stroke:#999;stroke-width:1px;stroke-dasharray:1,2" d="M240 160v224"/>
+      </svg>
+    </div>
+  </section>
+  <section id="editor">
+      <fieldset id="points">
+          <legend>Points</legend>
+          <label class="field"><span class="point">P0</span><input id="pl-0" readonly></label>
+          <label class="field"><span class="point">P1</span><input id="pl-1"></label>
+          <label class="field"><span class="point">P2</span><input id="pl-2"></label>
+          <label class="field"><span class="point">P3</span><input id="pl-3"></label>
+          <label class="field"><span class="point">P4</span><input id="pl-4"></label>
+          <label class="field"><span class="point">P5</span><input id="pl-5" readonly></label>
+      </fieldset>
+      <fieldset id="coefficients">
+          <legend>Coefficients</legend>
+          <label class="field"><input id="pc-0"><span class="coefficient">x<sup>5</sup></span></label>
+          <label class="field"><input id="pc-1"><span class="coefficient">x<sup>4</sup></span></label>
+          <label class="field"><input id="pc-2"><span class="coefficient">x<sup>3</sup></span></label>
+          <label class="field"><input id="pc-3"><span class="coefficient">x<sup>2</sup></span></label>
+          <label class="field"><input id="pc-4"><span class="coefficient">x</span></label>
+      </fieldset>
+      <fieldset id="presets">
+          <legend><label for="preset-picker">Presets</label></legend>
+          <select id="preset-picker">
+          </select>
+      </fieldset>
+  </section>
+  <section id="motion">
+    <fieldset>
+      <legend><label for="duration">Duration for motion test in milliseconds</label></legend>
+      <input id="duration" autocomplete="off" value="1000">
+    </fieldset>
+    <div id="ball"></div>
+  </section>
+  <section id="controller">
+    <fieldset>
+      <legend>Control points graphical relative positions</legend>
+      <ul id="pointers">
+        <li class="pointer" id="cp-1">1</li>
+        <li class="pointer" id="cp-2">2</li>
+        <li class="pointer" id="cp-3">3</li>
+        <li class="pointer" id="cp-4">4</li>
+      </ul>
+    </fieldset>
+  </section>
+  <fieldset id="output">
+    <legend>
+      <label for="language-picker">Code generation in</label>
+      <select id="language-picker"></select>
+      <span id="language-tips"></span>
+    </legend>
+    <code id="code" tabindex="1" readonly></code>
+  </fieldset>
+</section>
+<script src="site.js"></script>
+</body>
+</html>
